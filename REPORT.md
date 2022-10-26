@@ -104,3 +104,31 @@ git rebase --onto 4cac550 --exec "git commit --amend --author=\"Ksenia Vasyutins
 Результат: 
 
 ![avatar](./docs/7_1.png)
+
+## Задание 8 ##
+_Описание задания_: Включите запоминание разрешений конфликтов. Влейте ветку feature в master, разрешив конфликт при слиянии. Откатите слияние, внесите изменение в файл README.md и снова влейте ветку feature в master без ручного разрешения конфликта.
+
+Включаем запоминание разрешение конфликтов:
+```bash
+git config rerere.enabled true
+```
+Вливаем ветку в мастер:
+```bash
+git checkout master
+git merge feature
+```
+У нас будут конфликты в файле README.md. Необходимо решить этот конфликт. Например, nano и удалить текст из мастера.
+
+Далее нам необходимо закоммитить этот файл и удалить предыдущий новому коммит:
+```bash
+git add README.md
+git commit --no-edit
+git reset --hard HEAD~1
+git merge feature
+```
+
+Ура, запомнил наше разрешение конфликта! 
+```bash
+git add README.md
+git commit --no-edit
+```
